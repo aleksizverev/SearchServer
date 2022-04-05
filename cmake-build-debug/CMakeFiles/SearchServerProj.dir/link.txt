@@ -1,0 +1,1 @@
+/opt/homebrew/bin/g++-11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.0 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/SearchServerProj.dir/main.cpp.o -o SearchServerProj 

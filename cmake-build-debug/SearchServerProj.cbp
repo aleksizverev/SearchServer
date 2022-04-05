@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="SearchServerProj"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\opt\homebrew\;CMake Files\..\..\..\..\..\opt\homebrew\lib\;CMake Files\..\..\..\..\..\opt\homebrew\lib\cmake\;CMake Files\..\..\..\..\..\opt\homebrew\lib\cmake\TBB\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SearchServerProject">
+				<Option output="/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/SearchServerProject" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/aleksizverev/Documents/Dev/SearchServerProj/."/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/../../../../../../include/c++/11"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/../../../../../../include/c++/11/aarch64-apple-darwin21"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/../../../../../../include/c++/11/backward"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/include"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/include-fixed"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.1.6/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 SearchServerProject"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SearchServerProject/fast">
+				<Option output="/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/SearchServerProject" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/aleksizverev/Documents/Dev/SearchServerProj/."/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/../../../../../../include/c++/11"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/../../../../../../include/c++/11/aarch64-apple-darwin21"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/../../../../../../include/c++/11/backward"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/include"/>
+					<Add directory="/opt/homebrew/Cellar/gcc/11.2.0_3/bin/../lib/gcc/11/gcc/aarch64-apple-darwin21/11/include-fixed"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/System/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.1.6/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 SearchServerProject/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/aleksizverev/Documents/Dev/SearchServerProj/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/document.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/document.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/log_duration.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/main.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/paginator.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/process_queries.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/process_queries.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/read_input_functions.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/read_input_functions.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/remove_duplicates.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/remove_duplicates.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/request_queue.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/request_queue.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/string_processing.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/string_processing.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/test_example_functions.cpp">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/test_example_functions.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/../../../../../opt/homebrew/lib/cmake/TBB/TBBConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\homebrew\lib\cmake\TBB\"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/../../../../../opt/homebrew/lib/cmake/TBB/TBBConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\homebrew\lib\cmake\TBB\"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/../../../../../opt/homebrew/lib/cmake/TBB/TBBTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\homebrew\lib\cmake\TBB\"/>
+		</Unit>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/../../../../../opt/homebrew/lib/cmake/TBB/TBBTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\homebrew\lib\cmake\TBB\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
