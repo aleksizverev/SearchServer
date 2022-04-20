@@ -36,11 +36,11 @@ public:
 
     void AddDocument(int document_id, const std::string_view document, DocumentStatus status, const std::vector<int>& ratings);
 
-    template <typename DocumentPredicate>
-    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentPredicate document_predicate) const {
+    template <typename ExecutionPolicy, typename DocumentPredicate>
+    std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query, DocumentPredicate document_predicate) const {
         const Query query = ParseQuery(raw_query, true);
 
-        auto matched_documents = FindAllDocuments(query, document_predicate);
+        auto matched_documents = FindAllDocuments(policy, query, document_predicate);
 
         sort(matched_documents.begin(), matched_documents.end(), [](const Document& lhs, const Document& rhs) {
             if (std::abs(lhs.relevance - rhs.relevance) < RELEVANCE_COMPARISON_ERR) {
@@ -56,8 +56,21 @@ public:
         return matched_documents;
     }
 
-    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentStatus status) const;
-    std::vector<Document> FindTopDocuments(std::string_view raw_query) const;
+    template<typename ExecutionPolicy>
+    std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query, DocumentStatus status) const {
+        return FindTopDocuments(policy, raw_query, [status](int document_id, DocumentStatus document_status, int rating) {
+            return document_status == status;
+        });
+    }
+
+    template<typename ExecutionPolicy>
+    std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query) const {
+        return FindTopDocuments(policy, raw_query, DocumentStatus::ACTUAL);
+    }
+
+    std::vector<Document> FindTopDocuments(std::string_view raw_query) const {
+        return FindTopDocuments(std::execution::seq, raw_query, DocumentStatus::ACTUAL);
+    }
 
     int GetDocumentCount() const;
     
@@ -112,8 +125,8 @@ private:
 
     double ComputeWordInverseDocumentFreq(const std::string_view& word) const;
 
-    template <typename DocumentPredicate>
-    std::vector<Document> FindAllDocuments(const Query& query, DocumentPredicate document_predicate) const {
+    template <typename ExecutionPolicy, typename DocumentPredicate>
+    std::vector<Document> FindAllDocuments(ExecutionPolicy& policy, const Query& query, DocumentPredicate document_predicate) const {
         std::map<int, double> document_to_relevance;
         for (const std::string_view& word : query.plus_words) {
             if (word_to_document_freqs_.count(word) == 0) {

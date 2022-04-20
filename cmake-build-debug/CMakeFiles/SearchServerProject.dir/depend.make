@@ -8,6 +8,7 @@ CMakeFiles/SearchServerProject.dir/main.cpp.o: \
  ../document.h \
  ../log_duration.h \
  ../main.cpp \
+ ../process_queries.h \
  ../search_server.h \
  ../string_processing.h
 CMakeFiles/SearchServerProject.dir/process_queries.cpp.o: \

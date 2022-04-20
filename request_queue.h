@@ -12,7 +12,7 @@ public:
 
     template <typename DocumentPredicate>
     std::vector<Document> AddFindRequest(std::string_view raw_query, DocumentPredicate document_predicate) {
-        const std::vector<Document> result = server_.FindTopDocuments(raw_query, document_predicate);
+        const std::vector<Document> result = server_.FindTopDocuments(std::execution::seq, raw_query, document_predicate);
         ++time_;
         CountEmptyRequests(result);
         return result;
