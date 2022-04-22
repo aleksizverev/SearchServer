@@ -58,6 +58,11 @@ public:
         return matched_documents;
     }
 
+    template <typename DocumentPredicate>
+    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentPredicate document_predicate) const {
+        return FindTopDocuments(std::execution::seq, raw_query, document_predicate);
+    }
+
     template<typename ExecutionPolicy>
     std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query, DocumentStatus status) const {
         return FindTopDocuments(policy, raw_query, [status](int document_id, DocumentStatus document_status, int rating) {
@@ -68,6 +73,10 @@ public:
     template<typename ExecutionPolicy>
     std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query) const {
         return FindTopDocuments(policy, raw_query, DocumentStatus::ACTUAL);
+    }
+
+    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentStatus status) const {
+        return FindTopDocuments(std::execution::seq, raw_query, status);
     }
 
     std::vector<Document> FindTopDocuments(std::string_view raw_query) const {
@@ -173,7 +182,7 @@ private:
     template <typename ExecutionPolicy, typename DocumentPredicate>
     std::vector<Document> FindAllDocuments(ExecutionPolicy& policy, const Query& query, DocumentPredicate document_predicate) const {
 
-        if (std::is_same_v<ExecutionPolicy, std::execution::parallel_policy>) {
+        if (std::is_same_v<std::decay_t<ExecutionPolicy>, std::execution::parallel_policy>) {
             //LOG_DURATION("par_search_area");
 
             bool isMinusWordInDoc = any_of(policy,

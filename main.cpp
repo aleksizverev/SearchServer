@@ -75,6 +75,7 @@ void Test(string_view mark, const SearchServer& search_server, const vector<stri
 #define TEST(policy) Test(#policy, search_server, queries, execution::policy)
 
 int main() {
+
     /*
     {
         SearchServer search_server("and with"s);
@@ -106,6 +107,8 @@ int main() {
         {
             //LOG_DURATION("seq_pred"s);
             // последовательная версия
+           // auto res = search_server.FindTopDocuments(execution::seq, "curly nasty cat"s,
+         //                                  DocumentStatus::BANNED);
             for (const Document &document: search_server.FindTopDocuments(execution::seq, "curly nasty cat"s,
                                                                           DocumentStatus::BANNED)) {
                 PrintDocument(document);
@@ -116,6 +119,13 @@ int main() {
         {
             //LOG_DURATION("par"s);
             // параллельная версия
+//            auto res = search_server.FindTopDocuments(
+//                    execution::par,
+//                    "curly nasty cat"s,
+//                    [](int document_id, DocumentStatus status,int rating) {
+//                        return document_id % 2 == 0;
+//                    });
+
             for (const Document &document: search_server.FindTopDocuments(execution::par, "curly nasty cat"s,
                                                                           [](int document_id, DocumentStatus status,
                                                                              int rating) {
@@ -125,7 +135,7 @@ int main() {
             }
         }
     }
-     */
+    */
 
     {
         mt19937 generator;
