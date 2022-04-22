@@ -21,6 +21,8 @@ process_queries.h
 /Users/aleksizverev/Documents/Dev/SearchServerProj/process_queries.h
 search_server.h
 /Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.h
+log_duration.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/log_duration.h
 execution
 -
 iostream
@@ -29,8 +31,38 @@ string
 -
 vector
 -
+random
+-
+
+/Users/aleksizverev/Documents/Dev/SearchServerProj/process_queries.cpp
+process_queries.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/process_queries.h
+execution
+-
 
 /Users/aleksizverev/Documents/Dev/SearchServerProj/process_queries.h
+search_server.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.h
+
+/Users/aleksizverev/Documents/Dev/SearchServerProj/remove_duplicates.cpp
+remove_duplicates.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/remove_duplicates.h
+
+/Users/aleksizverev/Documents/Dev/SearchServerProj/remove_duplicates.h
+search_server.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.h
+
+/Users/aleksizverev/Documents/Dev/SearchServerProj/request_queue.cpp
+request_queue.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/request_queue.h
+
+/Users/aleksizverev/Documents/Dev/SearchServerProj/request_queue.h
+deque
+-
+search_server.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.h
+
+/Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.cpp
 search_server.h
 /Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.h
 
@@ -56,6 +88,8 @@ numeric
 execution
 -
 functional
+-
+mutex
 -
 document.h
 /Users/aleksizverev/Documents/Dev/SearchServerProj/document.h

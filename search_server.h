@@ -11,6 +11,7 @@
 #include <numeric>
 #include <execution>
 #include <functional>
+#include <mutex>
 
 #include "document.h"
 #include "string_processing.h"
@@ -42,6 +43,7 @@ public:
 
         auto matched_documents = FindAllDocuments(policy, query, document_predicate);
 
+        //LOG_DURATION("sort_area");
         sort(matched_documents.begin(), matched_documents.end(), [](const Document& lhs, const Document& rhs) {
             if (std::abs(lhs.relevance - rhs.relevance) < RELEVANCE_COMPARISON_ERR) {
                 return lhs.rating > rhs.rating;
@@ -89,6 +91,49 @@ public:
 
 private:
 
+    template <typename Key, typename Value>
+    class ConcurrentMap {
+    public:
+        static_assert(std::is_integral_v<Key>, "ConcurrentMap supports only integer keys");
+
+        struct Access {
+            std::lock_guard<std::mutex> guard;
+            Value& ref_to_value;
+        };
+
+        explicit ConcurrentMap(size_t bucket_count):
+                bucket_cnt_(bucket_count),
+                devided_maps_(bucket_count),
+                vector_mutexes_(bucket_count)
+        {}
+
+        Access operator[](const Key& key){
+            uint64_t submap_number = static_cast<uint64_t>(key) % bucket_cnt_;
+            return Access{
+                    std::lock_guard(vector_mutexes_[submap_number]),
+                    devided_maps_[submap_number][key]
+            };
+        }
+
+
+        std::map<Key, Value> BuildOrdinaryMap(){
+            std::map<Key, Value> ordinary_map;
+            for(size_t i = 0; i < bucket_cnt_; ++i){
+                std::lock_guard guard(vector_mutexes_[i]);
+                ordinary_map.insert(
+                        std::make_move_iterator(devided_maps_[i].begin()),
+                        std::make_move_iterator(devided_maps_[i].end())
+                );
+            }
+            return ordinary_map;
+        }
+
+    private:
+        size_t bucket_cnt_;
+        std::vector<std::map<Key, Value>> devided_maps_;
+        std::vector<std::mutex> vector_mutexes_;
+    };
+
     struct DocumentData {
         int rating;
         DocumentStatus status;
@@ -127,34 +172,77 @@ private:
 
     template <typename ExecutionPolicy, typename DocumentPredicate>
     std::vector<Document> FindAllDocuments(ExecutionPolicy& policy, const Query& query, DocumentPredicate document_predicate) const {
-        std::map<int, double> document_to_relevance;
-        for (const std::string_view& word : query.plus_words) {
-            if (word_to_document_freqs_.count(word) == 0) {
-                continue;
+
+        if (std::is_same_v<ExecutionPolicy, std::execution::parallel_policy>) {
+            //LOG_DURATION("par_search_area");
+
+            bool isMinusWordInDoc = any_of(policy,
+                                           query.minus_words.begin(),
+                                           query.minus_words.end(),
+                                           [this](const std::string_view &word) {
+                                               return word_to_document_freqs_.count(word);
+                                           });
+
+            ConcurrentMap<int, double> document_to_relevance(8);
+            if (!isMinusWordInDoc) {
+                std::for_each(std::execution::par,
+                              query.plus_words.begin(), query.plus_words.end(),
+                              [this, &document_to_relevance, &document_predicate](const std::string_view word) {
+                                  if (!word_to_document_freqs_.count(word) == 0) {
+                                      const double inverse_document_freq = ComputeWordInverseDocumentFreq(word);
+                                      for (const auto[document_id, term_freq]: word_to_document_freqs_.at(word)) {
+                                          const auto &document_data = documents_.at(document_id);
+                                          if (document_predicate(document_id, document_data.status,
+                                                                 document_data.rating)) {
+                                              document_to_relevance[document_id].ref_to_value +=
+                                                      term_freq * inverse_document_freq;
+                                          }
+                                      }
+                                  }
+                              });
             }
-            const double inverse_document_freq = ComputeWordInverseDocumentFreq(word);
-            for (const auto [document_id, term_freq] : word_to_document_freqs_.at(word)) {
-                const auto& document_data = documents_.at(document_id);
-                if (document_predicate(document_id, document_data.status, document_data.rating)) {
-                    document_to_relevance[document_id] += term_freq * inverse_document_freq;
+
+            auto result = document_to_relevance.BuildOrdinaryMap();
+
+            std::vector<Document> matched_documents;
+            std::for_each(
+                    result.begin(), result.end(),
+                    [this, &matched_documents](const auto &elem) {
+                        matched_documents.push_back({elem.first, elem.second, documents_.at(elem.first).rating});
+                    });
+            return matched_documents;
+        } else {
+
+            //LOG_DURATION("seq_search_area");
+            std::map<int, double> document_to_relevance;
+            for (const std::string_view &word: query.plus_words) {
+                if (word_to_document_freqs_.count(word) == 0) {
+                    continue;
+                }
+                const double inverse_document_freq = ComputeWordInverseDocumentFreq(word);
+                for (const auto[document_id, term_freq]: word_to_document_freqs_.at(word)) {
+                    const auto &document_data = documents_.at(document_id);
+                    if (document_predicate(document_id, document_data.status, document_data.rating)) {
+                        document_to_relevance[document_id] += term_freq * inverse_document_freq;
+                    }
                 }
             }
-        }
 
-        for (const std::string_view& word : query.minus_words) {
-            if (word_to_document_freqs_.count(word) == 0) {
-                continue;
+            for (const std::string_view &word: query.minus_words) {
+                if (word_to_document_freqs_.count(word) == 0) {
+                    continue;
+                }
+                for (const auto[document_id, _]: word_to_document_freqs_.at(word)) {
+                    document_to_relevance.erase(document_id);
+                }
             }
-            for (const auto [document_id, _] : word_to_document_freqs_.at(word)) {
-                document_to_relevance.erase(document_id);
-            }
-        }
 
-        std::vector<Document> matched_documents;
-        for (const auto [document_id, relevance] : document_to_relevance) {
-            matched_documents.push_back({document_id, relevance, documents_.at(document_id).rating});
+            std::vector<Document> matched_documents;
+            for (const auto[document_id, relevance]: document_to_relevance) {
+                matched_documents.push_back({document_id, relevance, documents_.at(document_id).rating});
+            }
+            return matched_documents;
         }
-        return matched_documents;
     }
     
 };
