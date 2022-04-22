@@ -92,6 +92,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/concurrent_map.h">
+			<Option target="SearchServerProject"/>
+		</Unit>
 		<Unit filename="/Users/aleksizverev/Documents/Dev/SearchServerProj/document.cpp">
 			<Option target="SearchServerProject"/>
 		</Unit>

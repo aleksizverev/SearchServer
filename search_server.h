@@ -16,6 +16,7 @@
 #include "document.h"
 #include "string_processing.h"
 #include "log_duration.h"
+#include "concurrent_map.h"
 
 const int MAX_RESULT_DOCUMENT_COUNT = 5;
 const double RELEVANCE_COMPARISON_ERR = 1e-6;
@@ -58,11 +59,6 @@ public:
         return matched_documents;
     }
 
-    template <typename DocumentPredicate>
-    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentPredicate document_predicate) const {
-        return FindTopDocuments(std::execution::seq, raw_query, document_predicate);
-    }
-
     template<typename ExecutionPolicy>
     std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query, DocumentStatus status) const {
         return FindTopDocuments(policy, raw_query, [status](int document_id, DocumentStatus document_status, int rating) {
@@ -73,6 +69,11 @@ public:
     template<typename ExecutionPolicy>
     std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query) const {
         return FindTopDocuments(policy, raw_query, DocumentStatus::ACTUAL);
+    }
+
+    template <typename DocumentPredicate>
+    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentPredicate document_predicate) const {
+        return FindTopDocuments(std::execution::seq, raw_query, document_predicate);
     }
 
     std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentStatus status) const {
@@ -99,50 +100,6 @@ public:
 
 
 private:
-
-    template <typename Key, typename Value>
-    class ConcurrentMap {
-    public:
-        static_assert(std::is_integral_v<Key>, "ConcurrentMap supports only integer keys");
-
-        struct Access {
-            std::lock_guard<std::mutex> guard;
-            Value& ref_to_value;
-        };
-
-        explicit ConcurrentMap(size_t bucket_count):
-                bucket_cnt_(bucket_count),
-                devided_maps_(bucket_count),
-                vector_mutexes_(bucket_count)
-        {}
-
-        Access operator[](const Key& key){
-            uint64_t submap_number = static_cast<uint64_t>(key) % bucket_cnt_;
-            return Access{
-                    std::lock_guard(vector_mutexes_[submap_number]),
-                    devided_maps_[submap_number][key]
-            };
-        }
-
-
-        std::map<Key, Value> BuildOrdinaryMap(){
-            std::map<Key, Value> ordinary_map;
-            for(size_t i = 0; i < bucket_cnt_; ++i){
-                std::lock_guard guard(vector_mutexes_[i]);
-                ordinary_map.insert(
-                        std::make_move_iterator(devided_maps_[i].begin()),
-                        std::make_move_iterator(devided_maps_[i].end())
-                );
-            }
-            return ordinary_map;
-        }
-
-    private:
-        size_t bucket_cnt_;
-        std::vector<std::map<Key, Value>> devided_maps_;
-        std::vector<std::mutex> vector_mutexes_;
-    };
-
     struct DocumentData {
         int rating;
         DocumentStatus status;
@@ -192,7 +149,7 @@ private:
                                                return word_to_document_freqs_.count(word);
                                            });
 
-            ConcurrentMap<int, double> document_to_relevance(8);
+            ConcurrentMap<int, double> document_to_relevance(100);
             if (!isMinusWordInDoc) {
                 std::for_each(std::execution::par,
                               query.plus_words.begin(), query.plus_words.end(),

@@ -7,6 +7,7 @@ include_directories(.)
 
 find_package(TBB REQUIRED)
 add_executable(SearchServerProject
+        concurrent_map.h
         document.cpp
         document.h
         log_duration.h

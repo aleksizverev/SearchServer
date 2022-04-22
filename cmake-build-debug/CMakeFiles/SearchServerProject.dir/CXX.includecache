@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+/Users/aleksizverev/Documents/Dev/SearchServerProj/concurrent_map.h
+
 /Users/aleksizverev/Documents/Dev/SearchServerProj/document.h
 
 /Users/aleksizverev/Documents/Dev/SearchServerProj/log_duration.h
@@ -97,6 +99,8 @@ string_processing.h
 /Users/aleksizverev/Documents/Dev/SearchServerProj/string_processing.h
 log_duration.h
 /Users/aleksizverev/Documents/Dev/SearchServerProj/log_duration.h
+concurrent_map.h
+/Users/aleksizverev/Documents/Dev/SearchServerProj/concurrent_map.h
 
 /Users/aleksizverev/Documents/Dev/SearchServerProj/string_processing.h
 string
