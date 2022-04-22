@@ -59,11 +59,6 @@ public:
         return matched_documents;
     }
 
-    template <typename DocumentPredicate>
-    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentPredicate document_predicate) const {
-        return FindTopDocuments(std::execution::seq, raw_query, document_predicate);
-    }
-
     template<typename ExecutionPolicy>
     std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query, DocumentStatus status) const {
         return FindTopDocuments(policy, raw_query, [status](int document_id, DocumentStatus document_status, int rating) {
@@ -74,6 +69,11 @@ public:
     template<typename ExecutionPolicy>
     std::vector<Document> FindTopDocuments(ExecutionPolicy& policy, std::string_view raw_query) const {
         return FindTopDocuments(policy, raw_query, DocumentStatus::ACTUAL);
+    }
+
+    template <typename DocumentPredicate>
+    std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentPredicate document_predicate) const {
+        return FindTopDocuments(std::execution::seq, raw_query, document_predicate);
     }
 
     std::vector<Document> FindTopDocuments(std::string_view raw_query, DocumentStatus status) const {
