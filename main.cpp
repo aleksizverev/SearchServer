@@ -76,7 +76,7 @@ void Test(string_view mark, const SearchServer& search_server, const vector<stri
 
 int main() {
 
-    /*
+
     {
         SearchServer search_server("and with"s);
 
@@ -135,23 +135,23 @@ int main() {
             }
         }
     }
-    */
 
-    {
-        mt19937 generator;
 
-        const auto dictionary = GenerateDictionary(generator, 1000, 10);
-        const auto documents = GenerateQueries(generator, dictionary, 10'000, 70);
-
-        SearchServer search_server(dictionary[0]);
-        for (size_t i = 0; i < documents.size(); ++i) {
-            search_server.AddDocument(i, documents[i], DocumentStatus::ACTUAL, {1, 2, 3});
-        }
-
-        const auto queries = GenerateQueries(generator, dictionary, 100, 70);
-
-        TEST(seq);
-        cout << "----------" << endl;
-        TEST(par);
-    }
+//    {
+//        mt19937 generator;
+//
+//        const auto dictionary = GenerateDictionary(generator, 1000, 10);
+//        const auto documents = GenerateQueries(generator, dictionary, 10'000, 70);
+//
+//        SearchServer search_server(dictionary[0]);
+//        for (size_t i = 0; i < documents.size(); ++i) {
+//            search_server.AddDocument(i, documents[i], DocumentStatus::ACTUAL, {1, 2, 3});
+//        }
+//
+//        const auto queries = GenerateQueries(generator, dictionary, 100, 70);
+//
+//        TEST(seq);
+//        cout << "----------" << endl;
+//        TEST(par);
+//    }
 }

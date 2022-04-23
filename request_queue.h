@@ -11,15 +11,9 @@ public:
     void CountEmptyRequests(const std::vector<Document>& result);
 
     template <typename DocumentPredicate>
-    std::vector<Document> AddFindRequest(std::string_view raw_query, DocumentPredicate document_predicate) {
-        const std::vector<Document> result = server_.FindTopDocuments(std::execution::seq, raw_query, document_predicate);
-        ++time_;
-        CountEmptyRequests(result);
-        return result;
-    }
+    std::vector<Document> AddFindRequest(std::string_view raw_query, DocumentPredicate document_predicate);
 
     std::vector<Document> AddFindRequest(std::string_view raw_query, DocumentStatus status);
-
     std::vector<Document> AddFindRequest(std::string_view raw_query);
 
     int GetNoResultRequests() const;
@@ -34,3 +28,11 @@ private:
     int empty_res_cnt_ = 0;
     int time_ = 0;
 };
+
+template <typename DocumentPredicate>
+std::vector<Document> RequestQueue::AddFindRequest(std::string_view raw_query, DocumentPredicate document_predicate) {
+    const std::vector<Document> result = server_.FindTopDocuments(std::execution::seq, raw_query, document_predicate);
+    ++time_;
+    CountEmptyRequests(result);
+    return result;
+}

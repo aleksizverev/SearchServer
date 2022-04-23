@@ -180,16 +180,16 @@ void AddDocument(SearchServer& search_server, int document_id, const string& doc
     }
 }
 
-void FindTopDocuments(const SearchServer& search_server, string& raw_query) {
-    cout << "Результаты поиска по запросу: "s << raw_query << endl;
-    try {
-        for (const Document& document : search_server.FindTopDocuments(raw_query)) {
-            PrintDocument(document);
-        }
-    } catch (const invalid_argument& e) {
-        cout << "Ошибка поиска: "s << e.what() << endl;
-    }
-}
+//void FindTopDocuments(const SearchServer& search_server, string& raw_query) {
+//    cout << "Результаты поиска по запросу: "s << raw_query << endl;
+//    try {
+//        for (const Document& document : search_server.FindTopDocuments(raw_query)) {
+//            PrintDocument(document);
+//        }
+//    } catch (const invalid_argument& e) {
+//        cout << "Ошибка поиска: "s << e.what() << endl;
+//    }
+//}
 
 //void PrintDocument(const Document& document) {
 //    cout << "{ "s
