@@ -165,14 +165,6 @@ std::vector<Document> SearchServer::FindTopDocuments(std::string_view raw_query,
     return FindTopDocuments(std::execution::seq, raw_query, document_predicate);
 }
 
-//std::vector<Document> SearchServer::FindTopDocuments(std::string_view raw_query, DocumentStatus status) const {
-//    return FindTopDocuments(std::execution::seq, raw_query, status);
-//}
-
-//std::vector<Document> SearchServer::FindTopDocuments(std::string_view raw_query) const {
-//    return FindTopDocuments(std::execution::seq, raw_query, DocumentStatus::ACTUAL);
-//}
-
 template <typename DocumentPredicate>
 std::vector<Document> SearchServer::FindAllDocuments(std::execution::parallel_policy policy, const Query& query, DocumentPredicate document_predicate) const {
 
