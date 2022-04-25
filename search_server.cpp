@@ -163,52 +163,6 @@ double SearchServer::ComputeWordInverseDocumentFreq(const string_view& word) con
     return log(GetDocumentCount() * 1.0 / word_to_document_freqs_.at(word).size());
 }
 
-ostream& operator<<(ostream& out, const Document& document) {
-    out << "{ "s
-        << "document_id = "s << document.id << ", "s
-        << "relevance = "s << document.relevance << ", "s
-        << "rating = "s << document.rating << " }"s;
-    return out;
-}
-
-void AddDocument(SearchServer& search_server, int document_id, const string& document, DocumentStatus status,
-                 const vector<int>& ratings) {
-    try {
-        search_server.AddDocument(document_id, document, status, ratings);
-    } catch (const invalid_argument& e) {
-        cout << "Ошибка добавления документа "s << document_id << ": "s << e.what() << endl;
-    }
-}
-
-void FindTopDocuments(const SearchServer& search_server, string& raw_query) {
-    cout << "Результаты поиска по запросу: "s << raw_query << endl;
-    try {
-        for (const Document& document : search_server.FindTopDocuments(raw_query)) {
-            PrintDocument(document);
-        }
-    } catch (const invalid_argument& e) {
-        cout << "Ошибка поиска: "s << e.what() << endl;
-    }
-}
-
-//void PrintDocument(const Document& document) {
-//    cout << "{ "s
-//         << "document_id = "s << document.id << ", "s
-//         << "relevance = "s << document.relevance << ", "s
-//         << "rating = "s << document.rating << " }"s << endl;
-//}
-
-//void PrintMatchDocumentResult(int document_id, const vector<string>& words, DocumentStatus status) {
-//    cout << "{ "s
-//         << "document_id = "s << document_id << ", "s
-//         << "status = "s << static_cast<int>(status) << ", "s
-//         << "words ="s;
-//    for (const string& word : words) {
-//        cout << ' ' << word;
-//    }
-//    cout << "}"s << endl;
-//}
-
 const map<string_view , double>& SearchServer::GetWordFrequencies(int document_id){
     static const map<string_view, double> empty_map;
     

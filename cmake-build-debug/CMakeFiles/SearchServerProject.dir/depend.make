@@ -50,4 +50,10 @@ CMakeFiles/SearchServerProject.dir/string_processing.cpp.o: \
  ../string_processing.cpp \
  ../string_processing.h
 CMakeFiles/SearchServerProject.dir/test_example_functions.cpp.o: \
- ../test_example_functions.cpp
+ ../concurrent_map.h \
+ ../document.h \
+ ../log_duration.h \
+ ../search_server.h \
+ ../string_processing.h \
+ ../test_example_functions.cpp \
+ ../test_example_functions.h

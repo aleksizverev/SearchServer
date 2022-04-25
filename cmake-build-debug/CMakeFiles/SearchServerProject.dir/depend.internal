@@ -50,4 +50,10 @@ CMakeFiles/SearchServerProject.dir/string_processing.cpp.o
  /Users/aleksizverev/Documents/Dev/SearchServerProj/string_processing.cpp
  /Users/aleksizverev/Documents/Dev/SearchServerProj/string_processing.h
 CMakeFiles/SearchServerProject.dir/test_example_functions.cpp.o
+ /Users/aleksizverev/Documents/Dev/SearchServerProj/concurrent_map.h
+ /Users/aleksizverev/Documents/Dev/SearchServerProj/document.h
+ /Users/aleksizverev/Documents/Dev/SearchServerProj/log_duration.h
+ /Users/aleksizverev/Documents/Dev/SearchServerProj/search_server.h
+ /Users/aleksizverev/Documents/Dev/SearchServerProj/string_processing.h
  /Users/aleksizverev/Documents/Dev/SearchServerProj/test_example_functions.cpp
+ /Users/aleksizverev/Documents/Dev/SearchServerProj/test_example_functions.h
